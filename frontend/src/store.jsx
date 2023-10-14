@@ -5,6 +5,7 @@ const MyStoreContext = createContext();
 
 const MyStoreProvider = ({ children }) => {
   const [pokemonData, setPokemonData] = useState([]);
+  const [randomPokemon, setRandomPokemon] = useState(null);
 
   const fetchPokemonData = () => {
     axios
@@ -21,6 +22,10 @@ const MyStoreProvider = ({ children }) => {
     return Math.floor(Math.random() * 1010) + 1;
   };
 
+  const firstLetterCapital = (word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  };
+
   const fetchRandomPokemon = () => {
     const randomId = getRandomPokemonId();
     axios
@@ -33,8 +38,6 @@ const MyStoreProvider = ({ children }) => {
       });
   };
 
-  const [randomPokemon, setRandomPokemon] = useState(null);
-
   const convertDecimetersToFeetAndInches = (heightInDecimeters) => {
     const heightInMeters = heightInDecimeters * 0.1;
     const heightInFeet = heightInMeters * 3.28084;
@@ -46,6 +49,17 @@ const MyStoreProvider = ({ children }) => {
   const convertHectogramsToPounds = (weightInHectograms) => {
     const pounds = Math.floor(weightInHectograms * 0.220462);
     return pounds + " pounds";
+  };
+
+  const suffixAdder = (num) => {
+    switch (true) {
+      case num === 1:
+        return "1st";
+      case num === 2:
+        return "2nd";
+      case num === 3:
+        return "3rd";
+    }
   };
 
   const formatPokemonTypes = (typesString) => {
@@ -111,6 +125,8 @@ const MyStoreProvider = ({ children }) => {
         getRandomPokemonId,
         fetchRandomPokemon,
         randomPokemon,
+        suffixAdder,
+        firstLetterCapital,
       }}
     >
       {children}

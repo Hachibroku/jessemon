@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useMyStore } from "./store";
+import PokemonModal from "./pokemonModal";
 
 function PokemonList() {
   const {
@@ -9,11 +10,26 @@ function PokemonList() {
     formatPokemonTypes,
     pokemonData,
     regions,
+    suffixAdder,
+    firstLetterCapital,
   } = useMyStore();
-  const [selectedRegion, setSelectedRegion] = useState("All"); // Default: All regions
 
+  const [selectedRegion, setSelectedRegion] = useState("All");
   const handleRegionChange = (region) => {
     setSelectedRegion(region);
+  };
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+
+  const openModal = (pokemon) => {
+    setSelectedPokemon(pokemon);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedPokemon(null);
+    setShowModal(false);
   };
 
   const filteredPokemon =
@@ -25,13 +41,13 @@ function PokemonList() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-dark">
         <div className="container">
           <ul className="navbar-nav">
             {regions.map((region) => (
               <li key={region} className="nav-item">
                 <button
-                  className={`btn btn-link nav-link ${
+                  className={`btn btn-link nav-link btn-danger text-white ${
                     selectedRegion === region ? "active" : ""
                   }`}
                   onClick={() => handleRegionChange(region)}
@@ -59,15 +75,13 @@ function PokemonList() {
         </thead>
         <tbody>
           {filteredPokemon.map((pokemon) => (
-            <tr key={pokemon.id}>
+            <tr key={pokemon.id} onClick={() => openModal(pokemon)}>
               <td>{pokemon.id}</td>
-              <td>
-                {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-              </td>
+              <td>{firstLetterCapital(pokemon.name)}</td>
               <td>{convertDecimetersToFeetAndInches(pokemon.height)}</td>
               <td>{convertHectogramsToPounds(pokemon.weight)}</td>
               <td>{formatPokemonTypes(pokemon.types)}</td>
-              <td>{pokemon.evolution || "N/A"}</td>
+              <td>{suffixAdder(pokemon.evolution) || "N/A"}</td>
               <td>{getPokemonRegion(pokemon.id)}</td>
               <td>
                 <img
@@ -81,6 +95,13 @@ function PokemonList() {
           ))}
         </tbody>
       </table>
+      {showModal && (
+        <PokemonModal
+          show={showModal}
+          onHide={closeModal}
+          pokemon={selectedPokemon}
+        />
+      )}
     </div>
   );
 }
