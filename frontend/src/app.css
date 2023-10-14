@@ -1,0 +1,46 @@
+@keyframes moveBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url('https://wallpapers.com/images/featured-small/cool-pokemon-pictures-xi4yxcm7hiqv76c1.webp');
+  background-size: cover;
+  background-attachment: fixed;
+  animation: moveBackground 30s linear infinite;
+}
+
+.homepage {
+  background-image: url('https://your-homepage-background-image-url.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: #fff;
+}
+
+.container h1 {
+  font-size: 3rem;
+  padding-top: 40vh;
+}
+
+.container p {
+  font-size: 1.5rem;
+}
+
+.container img {
+  width: 30%;
+  display: block;
+  margin: 0 auto;
+}
