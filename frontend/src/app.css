@@ -18,12 +18,6 @@ body {
   animation: moveBackground 30s linear infinite;
 }
 
-.homepage {
-  background-image: url('https://your-homepage-background-image-url.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 .container {
   position: relative;
   text-align: center;

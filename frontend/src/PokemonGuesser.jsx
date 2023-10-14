@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function PokemonGuesser() {
   const [randomPokemon, setRandomPokemon] = useState(null);
@@ -10,12 +10,13 @@ function PokemonGuesser() {
     }
     const randomId = getRandomPokemonId();
 
-    axios.get(`http://localhost:3000/api/pokemon/${randomId}/`)
+    axios
+      .get(`http://localhost:3000/api/pokemon/${randomId}/`)
       .then((response) => {
         setRandomPokemon(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching random Pokémon data:', error);
+        console.error("Error fetching random Pokémon data:", error);
       });
   }, []);
 
@@ -24,9 +25,7 @@ function PokemonGuesser() {
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">Guess the Pokémon</h5>
-          <p className="card-text">
-            Can you guess the name of this Pokémon?
-          </p>
+          <p className="card-text">Can you guess the name of this Pokémon?</p>
           {randomPokemon && (
             <img
               src={randomPokemon.picture_url}
@@ -39,7 +38,9 @@ function PokemonGuesser() {
               <label className="form-label">Your Guess</label>
               <input type="text" className="form-control" />
             </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
           </form>
         </div>
       </div>
