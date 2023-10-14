@@ -1,24 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useMyStore } from "./store";
 
 function PokemonGuesser() {
-  const [randomPokemon, setRandomPokemon] = useState(null);
-
-  useEffect(() => {
-    function getRandomPokemonId() {
-      return Math.floor(Math.random() * 1010) + 1;
-    }
-    const randomId = getRandomPokemonId();
-
-    axios
-      .get(`http://localhost:3000/api/pokemon/${randomId}/`)
-      .then((response) => {
-        setRandomPokemon(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching random Pokémon data:", error);
-      });
-  }, []);
+  const { randomPokemon } = useMyStore();
 
   return (
     <div className="container mt-5">

@@ -1,46 +1,20 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import {
-  convertDecimetersToFeetAndInches,
-  convertHectogramsToPounds,
-  formatPokemonTypes,
-  getPokemonRegion,
-} from "./conversions";
+import React, { useState } from "react";
+import { useMyStore } from "./store";
 
 function PokemonList() {
-  const [pokemonData, setPokemonData] = useState([]);
+  const {
+    getPokemonRegion,
+    convertDecimetersToFeetAndInches,
+    convertHectogramsToPounds,
+    formatPokemonTypes,
+    pokemonData,
+    regions,
+  } = useMyStore();
   const [selectedRegion, setSelectedRegion] = useState("All"); // Default: All regions
 
-  useEffect(() => {
-    // Fetch Pokémon data from the Express.js server
-    axios
-      .get("http://localhost:3000/api/pokemon")
-      .then((response) => {
-        setPokemonData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching Pokémon data:", error);
-      });
-  }, []);
-
-  // Function to handle region selection
   const handleRegionChange = (region) => {
     setSelectedRegion(region);
   };
-
-  // List of available regions
-  const regions = [
-    "All",
-    "Kanto",
-    "Johto",
-    "Hoenn",
-    "Sinnoh",
-    "Unova",
-    "Kalos",
-    "Alola",
-    "Galar",
-    "Paldea",
-  ];
 
   const filteredPokemon =
     selectedRegion === "All"
