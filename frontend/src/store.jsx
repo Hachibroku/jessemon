@@ -6,6 +6,7 @@ const MyStoreContext = createContext();
 const MyStoreProvider = ({ children }) => {
   const [pokemonData, setPokemonData] = useState([]);
   const [randomPokemon, setRandomPokemon] = useState(null);
+  const [newPokemonList, setRandomPokemonList] = useState(null);
 
   const fetchPokemonData = () => {
     axios
@@ -17,25 +18,31 @@ const MyStoreProvider = ({ children }) => {
         console.error("Error fetching Pokémon data:", error);
       });
   };
+  const firstLetterCapital = (word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  };
 
   const getRandomPokemonId = () => {
     return Math.floor(Math.random() * 1010) + 1;
   };
 
-  const firstLetterCapital = (word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  };
-
   const fetchRandomPokemon = () => {
     const randomId = getRandomPokemonId();
-    axios
-      .get(`http://localhost:3000/api/pokemon/${randomId}/`)
-      .then((response) => {
-        setRandomPokemon(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching random Pokémon data:", error);
-      });
+    return axios.get(`http://localhost:3000/api/pokemon/${randomId}/`);
+  };
+
+  const fetchMultipleRandomPokemon = async (count) => {
+    const promises = [];
+    for (let i = 0; i < count; i++) {
+      promises.push(fetchRandomPokemon());
+    }
+    try {
+      const responses = await Promise.all(promises);
+      const newPokemonList = responses.map((response) => response.data);
+      setRandomPokemonList(newPokemonList);
+    } catch (error) {
+      console.error("Error fetching random Pokémon data:", error);
+    }
   };
 
   const convertDecimetersToFeetAndInches = (heightInDecimeters) => {
@@ -110,6 +117,7 @@ const MyStoreProvider = ({ children }) => {
   useEffect(() => {
     fetchPokemonData();
     fetchRandomPokemon();
+    fetchMultipleRandomPokemon(5);
   }, []);
 
   return (
@@ -127,6 +135,7 @@ const MyStoreProvider = ({ children }) => {
         randomPokemon,
         suffixAdder,
         firstLetterCapital,
+        newPokemonList,
       }}
     >
       {children}
@@ -134,7 +143,6 @@ const MyStoreProvider = ({ children }) => {
   );
 };
 
-// Step 5: Create a custom hook to access the store
 const useMyStore = () => {
   const context = useContext(MyStoreContext);
   if (!context) {

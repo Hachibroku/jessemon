@@ -36,6 +36,14 @@ function Nav() {
               Guess that Pokémon!
             </Link>
           </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link ml-3 btn text-white btn-warning"
+              to="/wordle"
+            >
+              Pokémon Wordle
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
