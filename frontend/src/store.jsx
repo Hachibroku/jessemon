@@ -31,6 +31,18 @@ const MyStoreProvider = ({ children }) => {
     return axios.get(`http://localhost:3000/api/pokemon/${randomId}/`);
   };
 
+  const fetchRandomPokemon2 = () => {
+    const randomId = getRandomPokemonId();
+    return axios
+      .get(`http://localhost:3000/api/pokemon/${randomId}/`)
+      .then((response) => {
+        setRandomPokemon(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching random Pokémon data:", error);
+      });
+  };
+
   const fetchMultipleRandomPokemon = async (count) => {
     const promises = [];
     for (let i = 0; i < count; i++) {
@@ -117,6 +129,7 @@ const MyStoreProvider = ({ children }) => {
   useEffect(() => {
     fetchPokemonData();
     fetchRandomPokemon();
+    fetchRandomPokemon2();
     fetchMultipleRandomPokemon(5);
   }, []);
 
@@ -136,6 +149,7 @@ const MyStoreProvider = ({ children }) => {
         suffixAdder,
         firstLetterCapital,
         newPokemonList,
+        fetchRandomPokemon2,
       }}
     >
       {children}
