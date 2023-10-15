@@ -2,7 +2,7 @@ App that I am creating to mess with the pokemon api
 
 To use the program clone it into a repo
 
-Change the file lovated in the backend folder named readonly.env to just .env. 
+Change the file located in the backend folder named readonly.env to just .env. 
 This gives the appropiate username and password to access the database.
 
 cd into the project on two seperate powershells(cmd line)
