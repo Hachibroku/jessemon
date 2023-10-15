@@ -1,9 +1,6 @@
 const axios = require('axios');
 const mongoose = require('mongoose');
 
-// MongoDB Atlas connection string
-const mongoUri = "mongodb+srv://jessejento:xfCCgKRdjCVrckaO@cluster0.ezwsx6w.mongodb.net/?retryWrites=true&w=majority";
-
 // Create a Mongoose model for Pokemon
 const Pokemon = mongoose.model('Pokemon', new mongoose.Schema({
   name: String,
@@ -49,7 +46,7 @@ async function fetchAndInsertPokemonData(pokemonId) {
 
 // Define the range of Pokemon IDs to fetch (1 to 1292)
 const startId = 1;
-const endId = 1010;
+const endId = 1;
 
 for (let pokemonId = startId; pokemonId <= endId; pokemonId++) {
   fetchAndInsertPokemonData(pokemonId);

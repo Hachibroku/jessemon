@@ -114,7 +114,6 @@ const MyStoreProvider = ({ children }) => {
     }
   };
   const regions = [
-    "All",
     "Kanto",
     "Johto",
     "Hoenn",
@@ -124,6 +123,7 @@ const MyStoreProvider = ({ children }) => {
     "Alola",
     "Galar",
     "Paldea",
+    "All",
   ];
 
   useEffect(() => {

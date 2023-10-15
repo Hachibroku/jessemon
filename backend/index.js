@@ -3,13 +3,21 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const port = 3000;
-const url = "mongodb+srv://jessejento:xfCCgKRdjCVrckaO@cluster0.ezwsx6w.mongodb.net/?retryWrites=true&w=majority"
+
+// Load environment variables from .env file
+require('dotenv').config();
+
+// Get the username and password from environment variables
+const USER_NAME = process.env.USER_NAME;
+const USER_PASSWORD = process.env.USER_PASSWORD;
+
+const url = `mongodb+srv://${USER_NAME}:${USER_PASSWORD}@cluster0.ezwsx6w.mongodb.net/?retryWrites=true&w=majority`;
 
 // Enable CORS for all routes
 app.use(cors());
 
 // Connect to MongoDB using Mongoose
-mongoose.connect(`${url}`, {
+mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

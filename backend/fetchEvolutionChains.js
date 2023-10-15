@@ -1,9 +1,6 @@
 const axios = require('axios');
 const mongoose = require('mongoose');
 
-// MongoDB Atlas connection string
-const mongoUri = "mongodb+srv://jessejento:xfCCgKRdjCVrckaO@cluster0.ezwsx6w.mongodb.net/?retryWrites=true&w=majority";
-
 // Create a Mongoose model for Evolution
 const Evolution = mongoose.model('Evolution', new mongoose.Schema({
   id: Number,

@@ -14,7 +14,7 @@ function PokemonList() {
     firstLetterCapital,
   } = useMyStore();
 
-  const [selectedRegion, setSelectedRegion] = useState("All");
+  const [selectedRegion, setSelectedRegion] = useState("Kanto");
   const handleRegionChange = (region) => {
     setSelectedRegion(region);
   };
