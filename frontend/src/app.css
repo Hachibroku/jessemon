@@ -38,3 +38,14 @@ body {
   display: block;
   margin: 0 auto;
 }
+
+.pokemon-silhouette {
+  width: 30%;
+  display: block;
+  margin: 0 auto;
+  filter: brightness(0%);
+}
+
+.pokemon-silhouette:hover {
+  filter: brightness(0%);
+}
