@@ -5,6 +5,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PokemonList from "./PokemonList";
 import PokemonGuesser from "./PokemonGuesser";
+import WhosThatPokemon from "./WhosThatPokemon";
 import PokemonWordle from "./PokemonWordle";
 import Home from "./home";
 import Nav from "./nav";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/guesser" element={<PokemonGuesser />} />
           <Route path="/pokemon" element={<PokemonList />} />
           <Route path="/wordle" element={<PokemonWordle />} />
+          <Route path="/whodat" element={<WhosThatPokemon />} />
         </Routes>
       </BrowserRouter>
     </MyStoreProvider>
